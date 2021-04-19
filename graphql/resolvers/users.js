@@ -1,16 +1,18 @@
-import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import pkg from "apollo-server";
 const { UserInputError } = pkg;
+
+import User from "../../models/User.js";
 import config from "../../config.js";
 const { SECRET_KEY } = config;
+import validateRegisterInput from "../../util/validators.js";
 
 export default {
   Mutation: {
     async register(
       parent,
-      { registerInput: { username, email, password, confirmedPassword } }
+      { registerInput: { username, email, password, confirmPassword } }
     ) {
       //TODO: Validate user data
       //TODO: Make sure uer doesn't already exist
@@ -19,6 +21,19 @@ export default {
         throw new UserInputError("Username is already taken", {
           errors: {
             username: "This username is taken",
+          },
+        });
+      }
+      const validInfo = validateRegisterInput(
+        username,
+        email,
+        password,
+        confirmPassword
+      );
+      if (!validInfo.valid) {
+        throw new UserInputError("Error in creating user", {
+          errors: {
+            ...validInfo.errors,
           },
         });
       }

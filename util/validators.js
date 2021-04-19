@@ -14,6 +14,7 @@ const validateRegisterInput = (username, email, password, confirmPassword) => {
   if (password.trim() === "") {
     errors.password = "Password can't be empty!";
   } else if (password !== confirmPassword) {
+    console.log("INSIDE", password, confirmPassword);
     errors.password = "Passwords don't match!";
   }
 

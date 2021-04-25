@@ -31,7 +31,7 @@ export default {
       if (!valid) {
         throw new UserInputError("Error in login in user", {
           errors: {
-            ...validInfo.errors,
+            ...errors,
           },
         });
       }

@@ -10,6 +10,7 @@ import config from "./config.js";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({ req }),
 });
 
 mongoose

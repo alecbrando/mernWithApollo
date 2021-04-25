@@ -1,4 +1,9 @@
-const validateRegisterInput = (username, email, password, confirmPassword) => {
+export const validateRegisterInput = (
+  username,
+  email,
+  password,
+  confirmPassword
+) => {
   const errors = {};
   if (username.trim() === "") {
     errors.username = "Username must not be empty!";
@@ -24,4 +29,16 @@ const validateRegisterInput = (username, email, password, confirmPassword) => {
   };
 };
 
-export default validateRegisterInput;
+export const validateLoginInput = (username, password) => {
+  const errors = {};
+  if (username.trim() === "") {
+    errors.username = "Username must not be empty!";
+  }
+  if (password.trim() === "") {
+    errors.password = "Password must not be empty!";
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0,
+  };
+};
